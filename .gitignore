@@ -1,0 +1,3 @@
+tools/cloudflared.exe
+bin/
+obj/

@@ -1,0 +1,81 @@
+@{
+    ViewData["Title"] = "Identify Plant";
+}
+
+<div class="bg-slideshow">
+    <div class="bg-slide active" style="background-image:url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1600&q=80')"></div>
+    <div class="bg-slide" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1600&q=80')"></div>
+    <div class="bg-slide" style="background-image:url('https://images.unsplash.com/photo-1477414348463-c0eb7f1359b6?w=1600&q=80')"></div>
+    <div class="bg-slide" style="background-image:url('https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=1600&q=80')"></div>
+    <div class="bg-slide" style="background-image:url('https://images.unsplash.com/photo-1444392061186-9fc38f16d4e4?w=1600&q=80')"></div>
+    <div class="bg-overlay"></div>
+</div>
+
+<section class="hero">
+    <div class="hero-content">
+        <p class="hero-eyebrow">AI-Powered Plant Identification</p>
+        <h1 class="hero-title">What plant<br /><span>is this?</span></h1>
+        <p class="hero-sub">Upload a photo or use your camera for an instant identification.</p>
+    </div>
+
+    <form method="post" action="/Plant/Index" enctype="multipart/form-data" id="scanForm">
+
+        <div class="scan-zone" id="scanZone">
+            <div class="scanner-corner tl"></div>
+            <div class="scanner-corner tr"></div>
+            <div class="scanner-corner bl"></div>
+            <div class="scanner-corner br"></div>
+            <div class="scan-line"></div>
+            <div class="upload-inner" id="uploadInner">
+                <div class="upload-icon">
+                    <svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+                        <polyline points="16 16 12 12 8 16"></polyline>
+                        <line x1="12" y1="12" x2="12" y2="21"></line>
+                        <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
+                    </svg>
+                </div>
+                <p class="upload-text">Drop a plant photo here</p>
+                <p class="upload-sub">or choose an option below</p>
+            </div>
+            <img id="imagePreview" class="image-preview" src="" alt="Preview" style="display:none;" />
+        </div>
+
+        <div class="action-buttons">
+            <label class="btn-secondary" for="fileInput">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="17 8 12 3 7 8"/>
+                    <line x1="12" y1="3" x2="12" y2="15"/>
+                </svg>
+                Upload Photo
+            </label>
+            <input type="file" id="fileInput" name="image" accept="image/*" style="display:none;" />
+
+            <button type="button" class="btn-secondary" id="cameraBtn">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                    <circle cx="12" cy="13" r="4"/>
+                </svg>
+                Take Photo
+            </button>
+        </div>
+
+        <div id="cameraSection" style="display:none;">
+            <video id="cameraVideo" autoplay playsinline></video>
+            <button type="button" class="btn-capture" id="captureBtn">Capture Photo</button>
+            <canvas id="cameraCanvas" style="display:none;"></canvas>
+        </div>
+
+        <input type="hidden" id="capturedImage" name="capturedImage" />
+
+        <button type="submit" class="btn-primary" id="scanBtn" disabled>
+            <span class="btn-text">SCAN PLANT</span>
+            <span class="btn-loader" style="display:none;">SCANNING...</span>
+        </button>
+
+        @if (!ViewData.ModelState.IsValid)
+        {
+            <p class="error-msg">Identification failed. Please try a clearer plant photo.</p>
+        }
+    </form>
+</section>
